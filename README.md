@@ -338,7 +338,7 @@ kubectl exec -it deploy/sleep -n client -c sleep -- curl httpbin.org/get
 ```
 
 Expected output:
-```http,nocopy
+```shell
 % kubectl exec -it deploy/sleep -n client -c sleep -- curl httpbin.org/get
 RBAC: access denied
 ```
@@ -350,7 +350,7 @@ kubectl exec -it deploy/sleep -n client -c sleep -- curl httpbin.org/anything
 ```
 
 Expected output:
-```http,nocopy
+```shell
 % kubectl exec -it deploy/sleep -n client -c sleep -- curl httpbin.org/anything
 {
   "args": {}, 
