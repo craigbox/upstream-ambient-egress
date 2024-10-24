@@ -6,7 +6,7 @@
 * [Step 3 - Ambient Egress Traffic with Waypoint](#step-3---ambient-egress-traffic-with-waypoint-)
 
 ## Data Path
-![ambient-egress-1](images/ambient-egress-1.png)
+![ambient-egress-2](images/ambient-egress-2.png)
 
 ## Step 1 - Install Istio Ambient <a name="step-1---install-istio-ambient-"></a>
 
@@ -321,7 +321,15 @@ spec:
     group: gateway.networking.k8s.io
   action: ALLOW
   rules:
-  # All egress is only allowed to access /anything
+  # Our admin application can access /ip and /anything
+  - from:
+    - source:
+        principals: ["cluster.local/ns/client/sa/sleep"]
+    to: 
+    - operation:
+        methods: ["GET"]
+        paths: ["/ip", "/anything"]
+  # All other egress is only allowed to access /anything
   - to:
     - operation:
         methods: ["GET"]
@@ -343,10 +351,11 @@ Expected output:
 RBAC: access denied
 ```
 
-Now try again with /anything
+Now try again with /anything or /ip
 
 ```shell
 kubectl exec -it deploy/sleep -n client -c sleep -- curl httpbin.org/anything
+kubectl exec -it deploy/sleep -n client -c sleep -- curl httpbin.org/ip
 ```
 
 Expected output:
@@ -368,6 +377,11 @@ Expected output:
   "method": "GET", 
   "origin": "71.202.124.203", 
   "url": "https://httpbin.org/anything"
+}
+---
+% kubectl exec -it deploy/sleep -n client -c sleep -- curl httpbin.org/ip
+{
+  "origin": "71.202.124.203"
 }
 ```
 
