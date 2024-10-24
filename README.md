@@ -5,6 +5,8 @@
 * [Step 2 - Configure App and validate mTLS](#step-2---configure-app-and-validate-mtls-)
 * [Step 3 - Ambient Egress Traffic with Waypoint](#step-3---ambient-egress-traffic-with-waypoint-)
 
+![ambient-egress-1](images/ambient-egress-1.png)
+
 ## Step 1 - Install Istio Ambient <a name="step-1---install-istio-ambient-"></a>
 
 Add ambient helm repo
