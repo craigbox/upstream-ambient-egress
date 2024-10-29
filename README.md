@@ -125,7 +125,7 @@ kubectl exec -it deploy/sleep -n client -c sleep -- curl http://httpbin.httpbin.
 Watch logs of ztunnel for traffic interception
 
 ```bash
-kubectl logs -n istio-system ds/ztunnel -f
+kubectl logs -n istio-system -l app.kubernetes.io/name=ztunnel -f
 ```
 
 You should see traffic and mTLS identities in the logs of ztunnel
